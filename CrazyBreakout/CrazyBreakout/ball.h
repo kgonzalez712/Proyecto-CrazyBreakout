@@ -16,6 +16,7 @@ public:
 private:
     double xVel;
     double yVel;
+    int deepLevel;
 
     void PlayerCollision();
     void CommonBlockCollision();
@@ -23,7 +24,11 @@ private:
     void TripleBlockCollision();
     void SurpriseBlockCollision();
     void DeepBlockCollision();
+    void BorderBlockCollision();
     void BorderCollision();
+    int getDeepLevel();
+    void setDeepLevel();
+
 
 public slots:
     void move();

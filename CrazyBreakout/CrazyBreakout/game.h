@@ -11,6 +11,7 @@
 #include "tripleblock.h"
 #include "deepblock.h"
 #include "surpriseblock.h"
+#include "borderblock.h"
 
 class Game: public QGraphicsView{
 public:
@@ -24,6 +25,8 @@ public:
     TripleBlock *tblock;
     DeepBlock *dpblock;
     SurpriseBlock  *sblock;
+    BorderBlock *bblock;
+    void createBlockGrid();
 
 };
 

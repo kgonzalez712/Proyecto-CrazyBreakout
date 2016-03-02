@@ -1,9 +1,20 @@
+
+/**
+ *
+ * @author Kevin
+ *
+ */
+
 #include "player.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include "ball.h"
 #include <QBrush>
 
+/**
+ * @brief Player::Player This is the class constructor it sets the paddle so the player can play
+ * @param parent
+ */
 Player::Player(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent){
     size=130;
     // drew the rect
@@ -14,12 +25,20 @@ Player::Player(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent){
     setBrush(brush);
 }
 
+/**
+ * @brief Player::mouseMoveEvent this method eneables the player to move the paddle with the mouse to play the game
+ * @param event
+ */
 void Player::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
     // follow mouse's x pos
     double mouseX = mapToScene(event->pos()).x();
     setPos(mouseX,y());
 }
 
+/**
+ * @brief Player::keyPressEvent this method enebles the player to move using the arrow keys on the keyboard
+ * @param event
+ */
 void Player::keyPressEvent(QKeyEvent *event){
     // move the player left and right
     if (event->key() == Qt::Key_Left){
@@ -36,16 +55,26 @@ void Player::keyPressEvent(QKeyEvent *event){
     }
 }
 
+/**
+ * @brief Player::getSize this method gets the paddle size of the player
+ * @return the value of the attribute size
+ */
 int Player::getSize(){
     return size;
 }
 
-
+/**
+ * @brief Player::getCenter this method retruns the center of the player's paddle
+ * @return
+ */
 double Player::getCenter()
 {
     return x()+rect().width()/2;
 }
 
+/**
+ * @brief Player::spawn this method spawn a  ball object each time a player is created or the ball go out of bounds
+ */
 void Player::spawn(){
     // create an enemy
     Ball * ball = new Ball();

@@ -1,3 +1,11 @@
+
+/**
+ *
+ * @author Kevin
+ *
+ */
+
+
 #include "ball.h"
 #include <QTimer>
 #include <QGraphicsScene>
@@ -10,7 +18,10 @@
 
 extern Game * game;
 
-
+/**
+ * @brief Ball::Ball this is the constructor
+ * @param parent this inherits from the QT classes QObject QGraphicsPixmapItem and QGraphicsItem which eneables the ability to show and item on the UI in this case the ball.
+ */
 
 Ball::Ball(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
     // drew the rect
@@ -19,6 +30,7 @@ Ball::Ball(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
     setPos(random_number,500);
     xVel=3;
     yVel=10;
+    deepLevel=0;
     // connect
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
@@ -26,6 +38,9 @@ Ball::Ball(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent){
     timer->start(50);
 }
 
+/**
+ * @brief Ball::BorderCollision this method takes care of the collisions between the ball and the UI borders, keeping the ball in the game playable area.
+ */
 void Ball::BorderCollision(){
     // check if out of bound, if so, reverse the proper velocity
     double screenH = game->height();
@@ -50,6 +65,26 @@ void Ball::BorderCollision(){
     // bottom edge - NONE (can fall through bottom)
 }
 
+/**
+ * @brief Ball::getDeepLevel this method returns the current deep level contained in the ball wich allows to destroy the border blocks
+ * @return the deep level value.
+ */
+int Ball::getDeepLevel()
+{
+    return deepLevel;
+}
+
+/**
+ * @brief Ball::setDeepLevel this method set the value for the deep level attribute
+ */
+void Ball::setDeepLevel()
+{
+    deepLevel = deepLevel + 1;
+}
+
+/**
+ * @brief Ball::PlayerCollision this method takes care of the collisions between the ball and the player paddle(bar) this keeps the ball ricocheting arround to play the game
+ */
 void Ball::PlayerCollision()
 {
     QList<QGraphicsItem*> cItems = collidingItems();
@@ -83,7 +118,9 @@ void Ball::PlayerCollision()
         }
     }
 
-
+/**
+ * @brief Ball::CommonBlockCollision this method handles the collisions between the ball and the common blocks
+ */
 void Ball::CommonBlockCollision(){
     QList<QGraphicsItem*> cItems = collidingItems();
         for (size_t i = 0, n = cItems.size(); i < n; ++i){
@@ -121,6 +158,9 @@ void Ball::CommonBlockCollision(){
         }
 }
 
+/**
+ * @brief Ball::DoubleBlockCollision this method handles the collisions between the ball and the double blocks
+ */
 void Ball::DoubleBlockCollision(){
     QList<QGraphicsItem*> cItems = collidingItems();
         for (size_t i = 0, n = cItems.size(); i < n; ++i){
@@ -158,6 +198,9 @@ void Ball::DoubleBlockCollision(){
         }
 }
 
+/**
+ * @brief Ball::TripleBlockCollision this method handles the collisions between the ball and the triple blocks
+ */
 void Ball::TripleBlockCollision()
 {
     QList<QGraphicsItem*> cItems = collidingItems();
@@ -195,6 +238,9 @@ void Ball::TripleBlockCollision()
         }
 }
 
+/**
+ * @brief Ball::SurpriseBlockCollision this method handles the collisions between the ball and the surprise blocks
+ */
 void Ball::SurpriseBlockCollision(){
 QList<QGraphicsItem*> cItems = collidingItems();
     for (size_t i = 0, n = cItems.size(); i < n; ++i){
@@ -207,20 +253,20 @@ QList<QGraphicsItem*> cItems = collidingItems();
 
             // collides from bottom
             if (ballx < (sblockc + 5) & ballx > (sblockc -5)){
-                yVel = -2 * yVel;
+                yVel = -1.5 * yVel;
             }
 
             // collides from right
             if (ballx < (sblockc - 5)){
-                xVel = -2 * xVel;
-                yVel = -2 * yVel;
+                xVel = -1.5 * xVel;
+                yVel = -1.5 * yVel;
 
             }
 
             // collides from left
             if (ballx > (sblockc + 5)){
-                xVel = -2 * xVel;
-                yVel = -2 * yVel;
+                xVel = -1.5 * xVel;
+                yVel = -1.5 * yVel;
 
             }
             // delete block(s)
@@ -230,35 +276,89 @@ QList<QGraphicsItem*> cItems = collidingItems();
     }
 }
 
-
+/**
+ * @brief Ball::DeepBlockCollision this method handles the collisions between the ball and the deep blocks
+ */
 void Ball::DeepBlockCollision(){
     QList<QGraphicsItem*> cItems = collidingItems();
         for (size_t i = 0, n = cItems.size(); i < n; ++i){
             DeepBlock* dpblock = dynamic_cast<DeepBlock*>(cItems[i]);
             // collides with block
             if (dpblock){
+                this->setDeepLevel();
+                qDebug() << "DeepLevel increased" ;
                 double ballx = pos().x();
                 double dpblockc = dpblock->getCenter();
                 // collides from bottom
-                if (ballx < (dpblockc + 10) & ballx > (dpblockc -10 )){
+                if (ballx < (dpblockc + 5) & ballx > (dpblockc -5)){
                     yVel = -1 * yVel;
                 }
+
                 // collides from right
-                if (ballx < (dpblockc - 10)){
+                if (ballx < (dpblockc - 5)){
                     xVel = 1 * xVel;
-                    yVel = -1 * yVel;
+                    yVel = 1 * yVel;
+
                 }
+
                 // collides from left
-                if (ballx > (dpblockc + 10)){
-                    xVel = 1 * xVel;
+                if (ballx > (dpblockc + 5)){
+                    xVel = -1 * xVel;
                     yVel = -1 * yVel;
+
                 }
             }
         }
 }
 
+/**
+ * @brief Ball::BorderBlockCollision this method handles the collisions between the ball and the border blocks
+ */
+void Ball::BorderBlockCollision(){
+QList<QGraphicsItem*> cItems = collidingItems();
+    for (size_t i = 0, n = cItems.size(); i < n; ++i){
+        BorderBlock* bblock = dynamic_cast<BorderBlock*>(cItems[i]);
+        // collides with block
+        if (bblock){
+            double ballx = pos().x();
+            int bpoints = bblock->getPoints();
+            double bblockc = bblock->getCenter();
 
 
+            // collides from bottom
+            if (ballx < (bblockc + 5) & ballx > (bblockc -5)){
+                yVel = -1 * yVel;
+            }
+
+            // collides from right
+            if (ballx < (bblockc - 5)){
+                xVel = -1 * 10;
+                yVel = -1 * yVel;
+
+            }
+
+            // collides from left
+            if (ballx > (bblockc + 5)){
+                xVel = -1 * -10;
+                yVel = -1 * yVel;
+
+            }
+            // delete block(s)
+            if (this->getDeepLevel()<0){
+                game->scene->removeItem(bblock);
+                game->score->increase(bpoints);
+                delete bblock;
+            }
+            else{
+                return ;
+            }
+        }
+    }
+}
+
+/**
+ * @brief Ball::move this methods handles the movement of the ball
+ */
 void Ball::move(){
     // move enemy down
     setPos(x()+xVel,y()+yVel);

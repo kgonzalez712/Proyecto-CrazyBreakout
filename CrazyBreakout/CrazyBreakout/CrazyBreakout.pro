@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     tripleblock.cpp \
     block.cpp \
     deepblock.cpp \
-    surpriseblock.cpp
+    surpriseblock.cpp \
+    borderblock.cpp
 
 HEADERS  += \
     game.h \
@@ -34,7 +35,8 @@ HEADERS  += \
     tripleblock.h \
     block.h \
     deepblock.h \
-    surpriseblock.h
+    surpriseblock.h \
+    borderblock.h
 
 FORMS    +=
 
