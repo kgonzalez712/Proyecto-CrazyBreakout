@@ -13,7 +13,6 @@
  * @param parent
  */
 CommonBlock::CommonBlock(QGraphicsItem *parent): QGraphicsRectItem(parent){
-    // draw rect
  setRect(0,0,100,20);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);

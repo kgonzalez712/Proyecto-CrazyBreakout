@@ -12,7 +12,6 @@
  * @param parent
  */
 DeepBlock::DeepBlock(QGraphicsItem *parent){
-    // draw rect
  setRect(0,0,100, 70);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);

@@ -13,7 +13,6 @@
  */
 TripleBlock::TripleBlock(QGraphicsItem *parent)
 {
-    // draw rect
  setRect(0,0,100,45);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);

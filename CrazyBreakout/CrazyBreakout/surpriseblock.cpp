@@ -12,7 +12,6 @@
  * @param parent
  */
 SurpriseBlock::SurpriseBlock(QGraphicsItem *parent): QGraphicsRectItem(parent){
-    // draw rect
  setRect(0,0,100,50);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);

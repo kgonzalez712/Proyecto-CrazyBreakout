@@ -7,7 +7,6 @@
 
 class DoubleBlock: public Block, public QGraphicsRectItem{
 public:
-    // constructors
     DoubleBlock(QGraphicsItem* parent=NULL);
     int getBPoints();
     int getPoints();

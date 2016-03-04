@@ -8,7 +8,6 @@
 
 class TripleBlock: public Block, public QGraphicsRectItem{
 public:
-    // constructors
     TripleBlock(QGraphicsItem* parent=NULL);
     int getBPoints();
     int getPoints();

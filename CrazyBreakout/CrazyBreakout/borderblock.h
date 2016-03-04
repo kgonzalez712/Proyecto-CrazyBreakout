@@ -7,7 +7,6 @@
 
 class BorderBlock: public Block, public QGraphicsRectItem{
 public:
-    // constructors
     BorderBlock(QGraphicsItem* parent=NULL);
     int getBPoints();
     int getPoints();

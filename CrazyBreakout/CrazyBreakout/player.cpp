@@ -17,7 +17,6 @@
  */
 Player::Player(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent){
     size=130;
-    // drew the rect
     setRect(0,0,size,10);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
@@ -30,7 +29,6 @@ Player::Player(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent){
  * @param event
  */
 void Player::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    // follow mouse's x pos
     double mouseX = mapToScene(event->pos()).x();
     setPos(mouseX,y());
 }
@@ -40,7 +38,6 @@ void Player::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
  * @param event
  */
 void Player::keyPressEvent(QKeyEvent *event){
-    // move the player left and right
     if (event->key() == Qt::Key_Left){
         setPos(x()-20,y());
         if (pos().x()<=-5){
@@ -76,7 +73,6 @@ double Player::getCenter()
  * @brief Player::spawn this method spawn a  ball object each time a player is created or the ball go out of bounds
  */
 void Player::spawn(){
-    // create an enemy
     Ball * ball = new Ball();
     scene()->addItem(ball);
 }

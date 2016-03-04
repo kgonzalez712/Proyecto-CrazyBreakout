@@ -6,7 +6,6 @@
 
 class CommonBlock: public Block, public QGraphicsRectItem{
 public:
-    // constructors
     CommonBlock(QGraphicsItem* parent=NULL);
     int getBPoints();
     int getPoints();

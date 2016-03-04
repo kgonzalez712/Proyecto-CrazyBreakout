@@ -6,7 +6,6 @@
 
 class SurpriseBlock: public Block , public QGraphicsRectItem{
 public:
-    // constructors
     SurpriseBlock(QGraphicsItem* parent=NULL);
     double getCenter();
 

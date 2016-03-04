@@ -6,7 +6,6 @@
 
 class DeepBlock: public Block, public QGraphicsRectItem{
 public:
-    // constructors
     DeepBlock(QGraphicsItem* parent=NULL);
     double getCenter();
 

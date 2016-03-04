@@ -13,7 +13,6 @@
  * @param parent
  */
 BorderBlock::BorderBlock(QGraphicsItem *parent): QGraphicsRectItem(parent){
-    // draw rect
     setRect(0,0,100,30);
    QBrush brush;
    brush.setStyle(Qt::SolidPattern);
